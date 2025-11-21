@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta de Honorários - BSC Advogados</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&display=swap');
+
+        body { font-family: 'Inter', sans-serif; background-color: #f4f4f5; }
+        h1, h2, h3 { font-family: 'Merriweather', serif; }
+        
+        :root {
+            --bsc-verde: #00332c;
+            --bsc-dourado: #c3a177;
+        }
+
+        .bg-bsc-verde { background-color: var(--bsc-verde); }
+        .text-bsc-verde { color: var(--bsc-verde); }
+        .border-bsc-verde { border-color: var(--bsc-verde); }
+        
+        .bg-bsc-dourado { background-color: var(--bsc-dourado); }
+        .text-bsc-dourado { color: var(--bsc-dourado); }
+        .border-bsc-dourado { border-color: var(--bsc-dourado); }
+
+        .price-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <!-- CABEÇALHO -->
+    <header class="bg-white shadow-md border-b-4 border-bsc-dourado">
+        <div class="container mx-auto p-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <h1 class="text-2xl md:text-3xl font-bold text-bsc-verde">Proposta de Honorários</h1>
+                <p class="text-gray-500 text-sm mt-1 uppercase tracking-wide">Recuperação de Crédito</p>
+            </div>
+            <img src="BSC-1.jpg" alt="Logo BSC" class="h-16 w-auto">
+        </div>
+    </header>
+
+    <!-- INTRODUÇÃO -->
+    <div class="bg-bsc-verde text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-light mb-4">Política de Preços Transparente</h2>
+            <p class="max-w-2xl mx-auto text-gray-300 text-lg">
+                Abaixo apresentamos nossa tabela de honorários inicial e de êxito, categorizada por faixa de valor do título, conforme análise do seu portfólio.
+            </p>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 -mt-10 pb-20">
+        
+        <!-- TABELA DE PREÇOS (CARDS) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-16">
+            <!-- Os cards serão gerados via JS aqui -->
+            <div id="pricing-container" class="contents"></div>
+        </div>
+
+        <!-- SEÇÃO DUPLA: RESUMO E SIMULADOR -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            
+            <!-- Resumo do Portfólio do Cliente -->
+            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-800 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-bsc-verde">Análise do Seu Portfólio</h3>
+                </div>
+                <p class="text-gray-600 mb-6">Baseado nos dados enviados, identificamos a seguinte distribuição de títulos:</p>
+                
+                <div class="overflow-hidden rounded-lg border border-gray-200">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Faixa</th>
+                                <th class="py-3 px-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Qtd. Títulos</th>
+                                <th class="py-3 px-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Custo Inicial Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="portfolio-body" class="divide-y divide-gray-200">
+                            <!-- JS preenche aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Simulador Interativo -->
+            <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-bsc-dourado relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-bsc-dourado opacity-10 rounded-full"></div>
+                
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-700 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-bsc-verde">Simulador de Custos</h3>
+                </div>
+                
+                <p class="text-gray-600 mb-6">Digite o valor de um título para saber instantaneamente as taxas aplicáveis.</p>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Valor da Dívida (R$)</label>
+                    <input type="number" id="input-valor" placeholder="Ex: 15000" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-lg outline-none transition" oninput="simularCustos()">
+                </div>
+
+                <div id="resultado-simulacao" class="bg-gray-50 rounded-lg p-6 hidden border border-gray-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-gray-600">Taxa Inicial (Entrada):</span>
+                        <span class="font-bold text-xl text-bsc-verde" id="sim-entrada">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Honorários de Êxito:</span>
+                        <span class="font-bold text-lg text-bsc-dourado" id="sim-percentual">0%</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-200 text-xs text-gray-500 text-center">
+                        *Valores baseados na tabela vigente.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="text-center mt-20 text-gray-400 text-sm">
+            <p>&copy; 2025 BSC Advogados e Associados. Todos os direitos reservados.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // DADOS DA SUA TABELA DE PREÇOS (Extraídos da Planilha de Créditos Zanini)
+        // Formato: { max: limite_superior, entrada: valor_entrada, percentual: taxa_exito, qtd: qtd_na_planilha, label: nome_faixa }
+        const tabelaPrecos = [
+            { label: "Até 5 mil", max: 5000, entrada: 200, percentual: 0.15, qtd: 4 },
+            { label: "5-20 mil", max: 20000, entrada: 400, percentual: 0.15, qtd: 7 },
+            { label: "20-50 mil", max: 50000, entrada: 500, percentual: 0.15, qtd: 2 },
+            { label: "50-100 mil", max: 100000, entrada: 1000, percentual: 0.15, qtd: 0 },
+            { label: "Acima de 100 mil", max: Infinity, entrada: 2000, percentual: 0.15, qtd: 0 }
+        ];
+
+        // Função para formatar moeda
+        const fmt = (val) => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const fmtPercent = (val) => (val * 100).toFixed(0) + '%';
+
+        // 1. Renderizar Cards de Preço
+        const container = document.getElementById('pricing-container');
+        const portfolioBody = document.getElementById('portfolio-body');
+
+        tabelaPrecos.forEach(item => {
+            // Cards
+            const card = `
+                <div class="price-card bg-white rounded-xl p-6 text-center border border-gray-100 shadow-sm relative overflow-hidden">
+                    <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Faixa de Valor</div>
+                    <div class="font-bold text-gray-800 text-lg mb-4 h-12 flex items-center justify-center">${item.label}</div>
+                    
+                    <div class="mb-4">
+                        <div class="text-sm text-gray-500">Entrada</div>
+                        <div class="text-3xl font-bold text-bsc-verde">${fmt(item.entrada)}</div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-2">
+                        <div class="text-xs text-gray-500">Êxito</div>
+                        <div class="text-xl font-bold text-bsc-dourado">${fmtPercent(item.percentual)}</div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += card;
+
+            // Tabela de Resumo (apenas se tiver quantidade > 0)
+            if (item.qtd > 0) {
+                const row = `
+                    <tr>
+                        <td class="py-3 px-4 text-sm text-gray-900 font-medium">${item.label}</td>
+                        <td class="py-3 px-4 text-sm text-gray-600 text-center bg-green-50 rounded-md font-bold">${item.qtd}</td>
+                        <td class="py-3 px-4 text-sm text-gray-900 text-right">${fmt(item.entrada * item.qtd)}</td>
+                    </tr>
+                `;
+                portfolioBody.innerHTML += row;
+            }
+        });
+
+        // Adiciona linha de total na tabela
+        const totalQtd = tabelaPrecos.reduce((acc, item) => acc + item.qtd, 0);
+        const totalValor = tabelaPrecos.reduce((acc, item) => acc + (item.entrada * item.qtd), 0);
+        portfolioBody.innerHTML += `
+            <tr class="bg-gray-100 font-bold border-t-2 border-gray-300">
+                <td class="py-3 px-4 text-gray-800">TOTAL PREVISTO</td>
+                <td class="py-3 px-4 text-center text-gray-800">${totalQtd}</td>
+                <td class="py-3 px-4 text-right text-bsc-verde">${fmt(totalValor)}</td>
+            </tr>
+        `;
+
+        // 2. Lógica do Simulador
+        function simularCustos() {
+            const inputVal = document.getElementById('input-valor').value;
+            const resultBox = document.getElementById('resultado-simulacao');
+            const val = parseFloat(inputVal);
+
+            if (isNaN(val) || val <= 0) {
+                resultBox.classList.add('hidden');
+                return;
+            }
+
+            // Encontrar a faixa correta
+            const faixa = tabelaPrecos.find(item => val <= item.max) || tabelaPrecos[tabelaPrecos.length - 1];
+
+            document.getElementById('sim-entrada').innerText = fmt(faixa.entrada);
+            document.getElementById('sim-percentual').innerText = fmtPercent(faixa.percentual);
+            
+            resultBox.classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
