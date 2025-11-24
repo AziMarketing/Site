@@ -11,112 +11,79 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
-        body { font-family: 'Open Sans', sans-serif; background-color: #f0fdf4; overflow-x: hidden; }
+        body { font-family: 'Open Sans', sans-serif; background-color: #f8fafc; overflow-x: hidden; }
         h1, h2, h3, .font-title { font-family: 'Montserrat', sans-serif; }
         
+        /* Cores da Marca */
         :root {
             --azi-primary: #0f172a;
             --azi-accent: #16a34a;
-            --azi-light: #f0fdf4;
         }
 
-        .text-azi-accent { color: var(--azi-accent); }
-        .bg-azi-accent { background-color: var(--azi-accent); }
-        .border-azi-accent { border-color: var(--azi-accent); }
+        /* Scroll Suave */
+        html { scroll-behavior: smooth; }
 
-        /* Cards e Interatividade */
+        /* Estilo dos Cards de Serviço */
         .service-card { transition: all 0.3s ease; }
         .service-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 25px -5px rgba(22, 163, 74, 0.15);
             border-color: var(--azi-accent);
         }
 
+        /* Checkbox Personalizado */
         .checkbox-wrapper input:checked + div {
-            background-color: #dcfce7;
+            background-color: #f0fdf4;
             border-color: var(--azi-accent);
             color: #14532d;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         
-        /* Fotos dos Sócios */
+        /* --- ESTILO DAS FOTOS DA EQUIPE (Para PNG) --- */
         .profile-img {
-            width: 260px; /* Tamanho padrão */
+            width: 260px;
             height: 260px;
-            object-fit: cover;
+            object-fit: cover; /* Ajusta a imagem para cobrir o círculo/quadrado */
+            object-position: top center; /* Foca no rosto */
             border-radius: 20px;
             border: 4px solid white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             transition: transform 0.3s;
+            background-color: #e2e8f0; /* Fundo cinza caso o PNG seja transparente */
         }
         
         /* Destaque para o Sócio do Centro */
         .profile-img-center {
-            width: 300px; /* Maior */
+            width: 300px;
             height: 300px;
-            border-color: #16a34a; /* Borda Verde */
+            border-color: #16a34a;
             z-index: 10;
         }
 
         .profile-card:hover .profile-img { transform: scale(1.03); }
 
-        /* --- CARROSSEL INFINITO (MARQUEE) --- */
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-        }
-        .marquee-content {
-            display: inline-flex;
-            animation: marquee 25s linear infinite;
-        }
+        /* --- CARROSSEL INFINITO --- */
+        .marquee-container { overflow: hidden; white-space: nowrap; position: relative; }
+        .marquee-content { display: inline-flex; animation: marquee 30s linear infinite; }
         .marquee-item {
-            width: 300px;
-            height: 300px;
-            margin-right: 20px;
-            border-radius: 16px;
-            overflow: hidden;
-            flex-shrink: 0;
+            width: 280px; height: 280px; margin-right: 20px;
+            border-radius: 16px; overflow: hidden; flex-shrink: 0;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: white;
         }
-        .marquee-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .marquee-container:hover .marquee-content {
-            animation-play-state: paused;
-        }
+        .marquee-item img { width: 100%; height: 100%; object-fit: cover; }
+        
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* --- FOTOS COM FUNDO COLORIDO --- */
-        .photo-frame {
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease;
-        }
-        .photo-frame img {
-            position: relative;
-            z-index: 2;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
+        /* --- GALERIA DE FOTOS --- */
+        .photo-frame { position: relative; z-index: 1; transition: transform 0.3s ease; }
+        .photo-frame img { position: relative; z-index: 2; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
         .photo-bg {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 100%;
-            height: 100%;
-            border-radius: 12px;
-            z-index: 0;
-            transition: all 0.3s ease;
+            position: absolute; top: 15px; left: 15px; width: 100%; height: 100%;
+            border-radius: 12px; z-index: 0; transition: all 0.3s ease;
         }
         .photo-frame:hover { transform: translate(-5px, -5px); }
         .photo-frame:hover .photo-bg { transform: translate(10px, 10px); }
-        
         .bg-custom-blue { background-color: #0f172a; }
         .bg-custom-green { background-color: #16a34a; }
 
@@ -124,11 +91,10 @@
 </head>
 <body class="text-slate-800">
 
-    <!-- NAVEGAÇÃO -->
-    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <img src="logo_azi.jpg" alt="Azi Comunicação" class="h-12 w-auto object-contain rounded-md">
+                <img src="logo_azi.png" alt="Azi Comunicação" class="h-12 w-auto object-contain">
             </div>
             <div class="hidden md:flex gap-6 text-sm font-bold text-gray-600">
                 <a href="#quem-somos" class="hover:text-green-600 transition">Quem Somos</a>
@@ -141,25 +107,24 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
     <header class="bg-slate-900 text-white py-24 relative overflow-hidden">
         <div class="absolute top-0 right-0 w-96 h-96 bg-green-500 rounded-full filter blur-[100px] opacity-20 -mr-20 -mt-20"></div>
         <div class="absolute bottom-0 left-0 w-72 h-72 bg-blue-500 rounded-full filter blur-[100px] opacity-20 -ml-20 -mb-20"></div>
 
         <div class="container mx-auto px-6 relative z-10 text-center">
             <span class="bg-white/10 text-green-300 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6 inline-block border border-white/20">Marketing para Todos</span>
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight font-title">
                 Divulgue seu negócio <br>sem <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">gastar uma fortuna</span>
             </h1>
             <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 font-light">
                 Pacotes de marketing digital acessíveis, pensados para pequenos e médios negócios que precisam crescer agora.
             </p>
             <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="#servicos" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition shadow-green-500/30 shadow-lg">
+                <a href="#orcamento" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition shadow-green-500/30 shadow-lg">
                     Ver Pacotes
                 </a>
-                <a href="#orcamento" class="border border-gray-600 hover:bg-gray-800 text-gray-300 font-semibold py-3 px-8 rounded-lg transition">
-                    Simular Investimento
+                <a href="https://wa.me/5563999999999" target="_blank" class="border border-gray-600 hover:bg-gray-800 text-gray-300 font-semibold py-3 px-8 rounded-lg transition">
+                    Falar no WhatsApp
                 </a>
             </div>
         </div>
@@ -167,39 +132,33 @@
 
     <main class="container mx-auto px-6 py-16 max-w-7xl">
 
-        <!-- QUEM SOMOS (LIDERANÇA - IAGO NO CENTRO) -->
         <section id="quem-somos" class="mb-32 text-center scroll-mt-24">
-            <h2 class="text-3xl font-bold text-slate-900 mb-2">Liderança</h2>
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 font-title">Liderança</h2>
             <div class="w-16 h-1 bg-green-500 mx-auto rounded-full mb-12"></div>
             
-            <!-- Container Flexível para Alinhar -->
             <div class="flex flex-col md:flex-row justify-center items-center md:items-end gap-12 md:gap-8 lg:gap-16 relative pt-10">
                 
-                <!-- Sócio Esquerda: Kaio -->
                 <div class="profile-card group order-2 md:order-1 relative md:top-4">
                     <div class="relative mx-auto mb-4">
-                        <img src="foto_kaio.jpg" onerror="this.src='https://via.placeholder.com/260x260/e2e8f0/94a3b8?text=Kaio'" alt="Kaio Azevedo" class="profile-img">
+                        <img src="foto_kaio.png" onerror="this.src='https://via.placeholder.com/260x260?text=Kaio'" alt="Kaio Azevedo" class="profile-img">
                         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-4 py-1 rounded-full shadow-md text-xs font-bold text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Sócio Proprietário</div>
                     </div>
                     <h4 class="text-xl font-bold text-slate-900">Kaio Azevedo</h4>
                     <p class="text-sm text-green-600 font-semibold">Comercial & Operações</p>
                 </div>
 
-                <!-- Sócio Centro: Iago (Destaque) -->
                 <div class="profile-card group order-1 md:order-2 relative md:-top-6 z-10">
                     <div class="relative mx-auto mb-6">
-                        <!-- Foto Maior e com Borda Verde -->
-                        <img src="foto_iago.jpg" onerror="this.src='https://via.placeholder.com/300x300/e2e8f0/94a3b8?text=Iago'" alt="Iago Manguary" class="profile-img profile-img-center shadow-2xl">
+                        <img src="foto_iago.png" onerror="this.src='https://via.placeholder.com/300x300?text=Iago'" alt="Iago Manguary" class="profile-img profile-img-center shadow-2xl">
                         <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-5 py-1.5 rounded-full shadow-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">Sócio Proprietário</div>
                     </div>
                     <h4 class="text-2xl font-bold text-slate-900">Iago Manguary</h4>
                     <p class="text-base text-green-600 font-bold">Estratégia & Gestão</p>
                 </div>
 
-                <!-- Sócio Direita: Natália -->
                 <div class="profile-card group order-3 md:order-3 relative md:top-4">
                     <div class="relative mx-auto mb-4">
-                        <img src="foto_natalia.jpg" onerror="this.src='https://via.placeholder.com/260x260/e2e8f0/94a3b8?text=Natália'" alt="Natália Azevedo" class="profile-img">
+                        <img src="foto_natalia.png" onerror="this.src='https://via.placeholder.com/260x260?text=Natalia'" alt="Natália Azevedo" class="profile-img">
                         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-4 py-1 rounded-full shadow-md text-xs font-bold text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Sócia Proprietária</div>
                     </div>
                     <h4 class="text-xl font-bold text-slate-900">Natália Azevedo</h4>
@@ -209,16 +168,14 @@
             </div>
         </section>
 
-        <!-- SERVIÇOS -->
         <section id="servicos" class="mb-24 scroll-mt-24">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">Soluções que Cabem no Bolso</h2>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 font-title">Soluções que Cabem no Bolso</h2>
                 <div class="w-16 h-1 bg-green-500 mx-auto rounded-full"></div>
                 <p class="text-gray-500 mt-4">Escolha apenas o que você precisa para começar.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card 1 -->
                 <div class="service-card bg-white p-6 rounded-xl border border-gray-100 shadow-md hover:shadow-xl">
                     <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-brands fa-instagram"></i></div>
                     <h3 class="text-lg font-bold text-gray-800 mb-2">Social Media (Start)</h3>
@@ -227,7 +184,6 @@
                         <span class="text-xl font-bold text-slate-800">R$ 450</span>
                     </div>
                 </div>
-                <!-- Card 2 -->
                 <div class="service-card bg-white p-6 rounded-xl border-2 border-green-500 shadow-xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 bg-green-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase">Popular</div>
                     <div class="w-12 h-12 bg-green-600 text-white rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-rocket"></i></div>
@@ -237,7 +193,6 @@
                         <span class="text-xl font-bold text-green-600">R$ 850</span>
                     </div>
                 </div>
-                <!-- Card 3 -->
                 <div class="service-card bg-white p-6 rounded-xl border border-gray-100 shadow-md hover:shadow-xl">
                     <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-bullseye"></i></div>
                     <h3 class="text-lg font-bold text-gray-800 mb-2">Gestão de Tráfego</h3>
@@ -246,7 +201,6 @@
                         <span class="text-xl font-bold text-slate-800">R$ 600</span>
                     </div>
                 </div>
-                <!-- Card 4 -->
                 <div class="service-card bg-white p-6 rounded-xl border border-gray-100 shadow-md hover:shadow-xl">
                     <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-pen-ruler"></i></div>
                     <h3 class="text-lg font-bold text-gray-800 mb-2">Pack 5 Artes</h3>
@@ -255,7 +209,6 @@
                         <span class="text-xl font-bold text-slate-800">R$ 250</span>
                     </div>
                 </div>
-                <!-- Card 5 -->
                 <div class="service-card bg-white p-6 rounded-xl border border-gray-100 shadow-md hover:shadow-xl">
                     <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-map-location-dot"></i></div>
                     <h3 class="text-lg font-bold text-gray-800 mb-2">Google Meu Negócio</h3>
@@ -264,7 +217,6 @@
                         <span class="text-xl font-bold text-slate-800">R$ 350</span>
                     </div>
                 </div>
-                <!-- Card 6 -->
                 <div class="service-card bg-white p-6 rounded-xl border border-gray-100 shadow-md hover:shadow-xl">
                     <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-fingerprint"></i></div>
                     <h3 class="text-lg font-bold text-gray-800 mb-2">Logo Express</h3>
@@ -276,76 +228,56 @@
             </div>
         </section>
 
-        <!-- PORTFÓLIO COM VISUAL NOVO -->
         <section id="portfolio" class="mb-32 scroll-mt-24">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">Nosso Portfólio</h2>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 font-title">Nosso Portfólio</h2>
                 <div class="w-16 h-1 bg-green-500 mx-auto rounded-full"></div>
                 <p class="text-gray-500 mt-4">Criatividade que converte.</p>
             </div>
 
-            <!-- 1. CARROSSEL INFINITO DE ARTES -->
             <div class="mb-24">
-                <h3 class="text-xl font-bold text-slate-700 mb-8 flex items-center gap-2 justify-center">
-                    <i class="fa-solid fa-palette text-rose-600"></i> Design Gráfico & Social Media
-                </h3>
-                
-                <!-- Container do Carrossel -->
                 <div class="marquee-container w-full py-4">
                     <div class="marquee-content">
-                        <!-- Duplicamos as imagens para dar o efeito infinito -->
-                        <!-- Bloco 1 -->
-                        <div class="marquee-item"><img src="arte1.jpg" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b799312c95d?w=500&h=500&fit=crop'" alt="Arte 1"></div>
-                        <div class="marquee-item"><img src="arte2.jpg" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&h=500&fit=crop'" alt="Arte 2"></div>
-                        <div class="marquee-item"><img src="arte3.jpg" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=500&fit=crop'" alt="Arte 3"></div>
-                        <div class="marquee-item"><img src="arte1.jpg" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b799312c95d?w=500&h=500&fit=crop'" alt="Arte 4"></div>
-                        <!-- Bloco 2 (Repetição) -->
-                        <div class="marquee-item"><img src="arte1.jpg" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b799312c95d?w=500&h=500&fit=crop'" alt="Arte 1"></div>
-                        <div class="marquee-item"><img src="arte2.jpg" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&h=500&fit=crop'" alt="Arte 2"></div>
-                        <div class="marquee-item"><img src="arte3.jpg" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=500&fit=crop'" alt="Arte 3"></div>
-                        <div class="marquee-item"><img src="arte1.jpg" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b799312c95d?w=500&h=500&fit=crop'" alt="Arte 4"></div>
+                        <div class="marquee-item"><img src="arte1.png" alt="Arte 1"></div>
+                        <div class="marquee-item"><img src="arte2.png" alt="Arte 2"></div>
+                        <div class="marquee-item"><img src="arte3.png" alt="Arte 3"></div>
+                        <div class="marquee-item"><img src="arte1.png" alt="Arte 4"></div>
+                        <div class="marquee-item"><img src="arte1.png" alt="Arte 1"></div>
+                        <div class="marquee-item"><img src="arte2.png" alt="Arte 2"></div>
+                        <div class="marquee-item"><img src="arte3.png" alt="Arte 3"></div>
+                        <div class="marquee-item"><img src="arte1.png" alt="Arte 4"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- 2. FOTOGRAFIA PROFISSIONAL COM FUNDO COLORIDO -->
             <div class="container mx-auto px-4 max-w-5xl">
                 <h3 class="text-xl font-bold text-slate-700 mb-10 flex items-center gap-2 justify-center">
                     <i class="fa-solid fa-camera text-green-600"></i> Produção Audiovisual
                 </h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                    
-                    <!-- Foto 1 (Fundo Verde) -->
                     <div class="photo-frame w-full aspect-[3/4]">
                         <div class="photo-bg bg-custom-green"></div>
-                        <img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=600&h=800&fit=crop'" class="w-full h-full object-cover" alt="Foto Profissional 1">
+                        <img src="foto1.png" class="w-full h-full object-cover" alt="Foto 1">
                     </div>
-
-                    <!-- Foto 2 (Fundo Azul) -->
                     <div class="photo-frame w-full aspect-[3/4] md:mt-8">
                         <div class="photo-bg bg-custom-blue"></div>
-                        <img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1554048612-387768052bf7?w=600&h=800&fit=crop'" class="w-full h-full object-cover" alt="Foto Profissional 2">
+                        <img src="foto2.png" class="w-full h-full object-cover" alt="Foto 2">
                     </div>
-
-                    <!-- Foto 3 (Fundo Verde) -->
                     <div class="photo-frame w-full aspect-[3/4]">
                         <div class="photo-bg bg-custom-green"></div>
-                        <img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&h=800&fit=crop'" class="w-full h-full object-cover" alt="Foto Profissional 3">
+                        <img src="foto3.png" class="w-full h-full object-cover" alt="Foto 3">
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <!-- SIMULADOR -->
         <section id="orcamento" class="bg-slate-900 rounded-3xl shadow-2xl overflow-hidden scroll-mt-24">
             <div class="grid grid-cols-1 lg:grid-cols-2">
                 <div class="p-8 md:p-10 bg-white">
                     <h3 class="text-2xl font-bold text-slate-800 mb-2">Monte seu Combo</h3>
                     <p class="text-gray-500 mb-6 text-sm">Selecione o que precisa e veja o valor na hora.</p>
                     <div class="space-y-3 max-h-[400px] overflow-y-auto pr-2">
-                        <!-- Checkboxes (Mantido igual) -->
                         <label class="checkbox-wrapper cursor-pointer block">
                             <input type="checkbox" class="hidden" value="450" data-name="Social Media (Start)" onchange="calcularTotal()">
                             <div class="border border-gray-200 rounded-lg p-3 flex justify-between items-center hover:border-green-400 transition">
@@ -434,7 +366,7 @@
 
     <footer class="bg-white border-t border-gray-100 py-10 text-center">
         <div class="container mx-auto px-6">
-            <img src="logo_azi.jpg" alt="Logo" class="h-8 mx-auto mb-4 opacity-50 grayscale hover:grayscale-0 transition">
+            <img src="logo_azi.png" alt="Logo" class="h-8 mx-auto mb-4 opacity-50 grayscale hover:grayscale-0 transition">
             <div class="flex justify-center gap-6 text-2xl text-gray-400 mb-4">
                 <a href="https://www.instagram.com/azicomunicacao/" target="_blank" class="hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>
             </div>
