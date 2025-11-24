@@ -11,13 +11,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
-        body { font-family: 'Open Sans', sans-serif; background-color: #f0fdf4; } /* Fundo levemente esverdeado */
+        body { font-family: 'Open Sans', sans-serif; background-color: #f0fdf4; overflow-x: hidden; }
         h1, h2, h3, .font-title { font-family: 'Montserrat', sans-serif; }
         
-        /* Cores da Azi (Adaptadas para um tom moderno e profissional) */
         :root {
-            --azi-primary: #0f172a; /* Azul Escuro / Preto */
-            --azi-accent: #16a34a; /* Verde (Foco em vendas/resultado) */
+            --azi-primary: #0f172a;
+            --azi-accent: #16a34a;
             --azi-light: #f0fdf4;
         }
 
@@ -25,24 +24,94 @@
         .bg-azi-accent { background-color: var(--azi-accent); }
         .border-azi-accent { border-color: var(--azi-accent); }
 
-        .service-card {
-            transition: all 0.3s ease;
-        }
+        /* Cards e Interatividade */
+        .service-card { transition: all 0.3s ease; }
         .service-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             border-color: var(--azi-accent);
         }
 
-        /* Checkbox personalizado */
         .checkbox-wrapper input:checked + div {
-            background-color: #dcfce7; /* Verde claro */
+            background-color: #dcfce7;
             border-color: var(--azi-accent);
             color: #14532d;
         }
-        .checkbox-wrapper input:checked + div .check-icon {
-            opacity: 1;
+        
+        /* Fotos dos Sócios */
+        .profile-img {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 4px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
         }
+        .profile-card:hover .profile-img { transform: scale(1.03); }
+
+        /* --- NOVO: CARROSSEL INFINITO (MARQUEE) --- */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee 25s linear infinite;
+        }
+        .marquee-item {
+            width: 300px;
+            height: 300px;
+            margin-right: 20px;
+            border-radius: 16px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .marquee-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* Pausa a animação ao passar o mouse */
+        .marquee-container:hover .marquee-content {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Move 50% porque o conteúdo é duplicado */
+        }
+
+        /* --- NOVO: FOTOS COM FUNDO COLORIDO --- */
+        .photo-frame {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+        .photo-frame img {
+            position: relative;
+            z-index: 2;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .photo-bg {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            z-index: 0;
+            transition: all 0.3s ease;
+        }
+        .photo-frame:hover { transform: translate(-5px, -5px); }
+        .photo-frame:hover .photo-bg { transform: translate(10px, 10px); }
+        
+        .bg-custom-blue { background-color: #0f172a; }
+        .bg-custom-green { background-color: #16a34a; }
+
     </style>
 </head>
 <body class="text-slate-800">
@@ -51,8 +120,12 @@
     <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <!-- LOGO AQUI -->
                 <img src="logo_azi.jpg" alt="Azi Comunicação" class="h-12 w-auto object-contain rounded-md">
+            </div>
+            <div class="hidden md:flex gap-6 text-sm font-bold text-gray-600">
+                <a href="#quem-somos" class="hover:text-green-600 transition">Quem Somos</a>
+                <a href="#servicos" class="hover:text-green-600 transition">Serviços</a>
+                <a href="#portfolio" class="hover:text-green-600 transition">Portfólio</a>
             </div>
             <a href="#orcamento" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full transition shadow-lg transform hover:scale-105 text-sm">
                 Solicitar Orçamento
@@ -62,7 +135,6 @@
 
     <!-- HERO SECTION -->
     <header class="bg-slate-900 text-white py-24 relative overflow-hidden">
-        <!-- Efeito de fundo -->
         <div class="absolute top-0 right-0 w-96 h-96 bg-green-500 rounded-full filter blur-[100px] opacity-20 -mr-20 -mt-20"></div>
         <div class="absolute bottom-0 left-0 w-72 h-72 bg-blue-500 rounded-full filter blur-[100px] opacity-20 -ml-20 -mb-20"></div>
 
@@ -85,10 +157,49 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-6 py-16 max-w-6xl">
+    <main class="container mx-auto px-6 py-16 max-w-7xl">
 
-        <!-- SEÇÃO DE SERVIÇOS -->
-        <section id="servicos" class="mb-24">
+        <!-- QUEM SOMOS -->
+        <section id="quem-somos" class="mb-32 text-center scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">Liderança</h2>
+            <div class="w-16 h-1 bg-green-500 mx-auto rounded-full mb-12"></div>
+            
+            <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+                
+                <!-- Sócio 1 -->
+                <div class="profile-card group">
+                    <div class="relative mx-auto mb-6">
+                        <img src="foto_kaio.jpg" onerror="this.src='https://via.placeholder.com/280x280/e2e8f0/94a3b8?text=Kaio'" alt="Kaio Azevedo" class="profile-img">
+                        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-4 py-1 rounded-full shadow-md text-xs font-bold text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Sócio Proprietário</div>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900">Kaio Azevedo</h4>
+                    <p class="text-sm text-green-600 font-semibold">Comercial & Operações</p>
+                </div>
+
+                <!-- Sócio 2 (Centro) -->
+                <div class="profile-card group relative z-10 transform md:-translate-y-4">
+                    <div class="relative mx-auto mb-6">
+                        <img src="foto_iago.jpg" onerror="this.src='https://via.placeholder.com/280x280/e2e8f0/94a3b8?text=Iago'" alt="Iago Manguary" class="profile-img border-green-500 border-4 shadow-2xl transform scale-110">
+                        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-4 py-1 rounded-full shadow-md text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">Sócio Proprietário</div>
+                    </div>
+                    <h4 class="text-2xl font-bold text-slate-900 mt-8">Iago Manguary</h4>
+                    <p class="text-base text-green-600 font-bold">Estratégia & Gestão</p>
+                </div>
+
+                <!-- Sócia 3 -->
+                <div class="profile-card group">
+                    <div class="relative mx-auto mb-6">
+                        <img src="foto_natalia.jpg" onerror="this.src='https://via.placeholder.com/280x280/e2e8f0/94a3b8?text=Natália'" alt="Natália Azevedo" class="profile-img">
+                        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-4 py-1 rounded-full shadow-md text-xs font-bold text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Sócia Proprietária</div>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900">Natália Azevedo</h4>
+                    <p class="text-sm text-green-600 font-semibold">Criação & Branding</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVIÇOS -->
+        <section id="servicos" class="mb-24 scroll-mt-24">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-slate-900 mb-4">Soluções que Cabem no Bolso</h2>
                 <div class="w-16 h-1 bg-green-500 mx-auto rounded-full"></div>
@@ -96,100 +207,134 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Serviço 1 -->
+                <!-- Card 1 -->
                 <div class="service-card bg-white p-6 rounded-xl border border-gray-100 shadow-md hover:shadow-xl">
-                    <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-brands fa-instagram"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-gray-800 mb-2">Social Media <span class="text-green-600 text-sm font-normal">(Start)</span></h3>
-                    <p class="text-gray-500 text-sm mb-4">Ideal para manter sua rede ativa. 2 posts por semana + Stories. Design profissional.</p>
+                    <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-brands fa-instagram"></i></div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Social Media (Start)</h3>
                     <div class="border-t pt-4 flex justify-between items-center">
                         <span class="text-xs text-gray-400">Mensal</span>
                         <span class="text-xl font-bold text-slate-800">R$ 450</span>
                     </div>
                 </div>
-
-                <!-- Serviço 2 -->
+                <!-- Card 2 -->
                 <div class="service-card bg-white p-6 rounded-xl border-2 border-green-500 shadow-xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 bg-green-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase">Popular</div>
-                    <div class="w-12 h-12 bg-green-600 text-white rounded-lg flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-solid fa-rocket"></i>
-                    </div>
+                    <div class="w-12 h-12 bg-green-600 text-white rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-rocket"></i></div>
                     <h3 class="text-lg font-bold text-gray-800 mb-2">Social Growth</h3>
-                    <p class="text-gray-500 text-sm mb-4">Para quem quer crescer. 4 posts/semana + Reels + Interação com seguidores.</p>
                     <div class="border-t pt-4 flex justify-between items-center">
                         <span class="text-xs text-gray-400">Mensal</span>
                         <span class="text-xl font-bold text-green-600">R$ 850</span>
                     </div>
                 </div>
-
-                <!-- Serviço 3 -->
+                <!-- Card 3 -->
                 <div class="service-card bg-white p-6 rounded-xl border border-gray-100 shadow-md hover:shadow-xl">
-                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-solid fa-bullseye"></i>
-                    </div>
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-bullseye"></i></div>
                     <h3 class="text-lg font-bold text-gray-800 mb-2">Gestão de Tráfego</h3>
-                    <p class="text-gray-500 text-sm mb-4">Anúncios no Instagram e Google para trazer clientes reais. (Verba de anúncio à parte).</p>
                     <div class="border-t pt-4 flex justify-between items-center">
-                        <span class="text-xs text-gray-400">Taxa de Gestão</span>
+                        <span class="text-xs text-gray-400">Taxa Gestão</span>
                         <span class="text-xl font-bold text-slate-800">R$ 600</span>
                     </div>
                 </div>
-
-                <!-- Serviço 4 -->
+                <!-- Card 4 -->
                 <div class="service-card bg-white p-6 rounded-xl border border-gray-100 shadow-md hover:shadow-xl">
-                    <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-solid fa-pen-ruler"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-gray-800 mb-2">Pack de Artes Avulsas</h3>
-                    <p class="text-gray-500 text-sm mb-4">Precisa só das artes? Pacote com 5 artes profissionais para você postar quando quiser.</p>
+                    <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-pen-ruler"></i></div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Pack 5 Artes</h3>
                     <div class="border-t pt-4 flex justify-between items-center">
-                        <span class="text-xs text-gray-400">Pacote Único</span>
+                        <span class="text-xs text-gray-400">Único</span>
                         <span class="text-xl font-bold text-slate-800">R$ 250</span>
                     </div>
                 </div>
-
-                <!-- Serviço 5 -->
+                <!-- Card 5 -->
                 <div class="service-card bg-white p-6 rounded-xl border border-gray-100 shadow-md hover:shadow-xl">
-                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-solid fa-map-location-dot"></i>
-                    </div>
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-map-location-dot"></i></div>
                     <h3 class="text-lg font-bold text-gray-800 mb-2">Google Meu Negócio</h3>
-                    <p class="text-gray-500 text-sm mb-4">Configuração completa para sua empresa aparecer no mapa e nas buscas do Google.</p>
                     <div class="border-t pt-4 flex justify-between items-center">
-                        <span class="text-xs text-gray-400">Taxa Única</span>
+                        <span class="text-xs text-gray-400">Único</span>
                         <span class="text-xl font-bold text-slate-800">R$ 350</span>
                     </div>
                 </div>
-
-                <!-- Serviço 6 -->
+                <!-- Card 6 -->
                 <div class="service-card bg-white p-6 rounded-xl border border-gray-100 shadow-md hover:shadow-xl">
-                    <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-lg flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-solid fa-fingerprint"></i>
-                    </div>
+                    <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-fingerprint"></i></div>
                     <h3 class="text-lg font-bold text-gray-800 mb-2">Logo Express</h3>
-                    <p class="text-gray-500 text-sm mb-4">Criação de Logotipo profissional + Marca d'água para suas fotos.</p>
                     <div class="border-t pt-4 flex justify-between items-center">
-                        <span class="text-xs text-gray-400">Taxa Única</span>
+                        <span class="text-xs text-gray-400">Único</span>
                         <span class="text-xl font-bold text-slate-800">R$ 500</span>
                     </div>
                 </div>
+            </div>
+        </section>
 
+        <!-- PORTFÓLIO COM VISUAL NOVO -->
+        <section id="portfolio" class="mb-32 scroll-mt-24">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Nosso Portfólio</h2>
+                <div class="w-16 h-1 bg-green-500 mx-auto rounded-full"></div>
+                <p class="text-gray-500 mt-4">Criatividade que converte.</p>
+            </div>
+
+            <!-- 1. CARROSSEL INFINITO DE ARTES -->
+            <div class="mb-24">
+                <h3 class="text-xl font-bold text-slate-700 mb-8 flex items-center gap-2 justify-center">
+                    <i class="fa-solid fa-palette text-rose-600"></i> Design Gráfico & Social Media
+                </h3>
+                
+                <!-- Container do Carrossel -->
+                <div class="marquee-container w-full py-4">
+                    <div class="marquee-content">
+                        <!-- Duplicamos as imagens para dar o efeito infinito -->
+                        <!-- Bloco 1 -->
+                        <div class="marquee-item"><img src="arte1.jpg" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b799312c95d?w=500&h=500&fit=crop'" alt="Arte 1"></div>
+                        <div class="marquee-item"><img src="arte2.jpg" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&h=500&fit=crop'" alt="Arte 2"></div>
+                        <div class="marquee-item"><img src="arte3.jpg" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=500&fit=crop'" alt="Arte 3"></div>
+                        <div class="marquee-item"><img src="arte1.jpg" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b799312c95d?w=500&h=500&fit=crop'" alt="Arte 4"></div>
+                        <!-- Bloco 2 (Repetição) -->
+                        <div class="marquee-item"><img src="arte1.jpg" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b799312c95d?w=500&h=500&fit=crop'" alt="Arte 1"></div>
+                        <div class="marquee-item"><img src="arte2.jpg" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&h=500&fit=crop'" alt="Arte 2"></div>
+                        <div class="marquee-item"><img src="arte3.jpg" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=500&fit=crop'" alt="Arte 3"></div>
+                        <div class="marquee-item"><img src="arte1.jpg" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b799312c95d?w=500&h=500&fit=crop'" alt="Arte 4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. FOTOGRAFIA PROFISSIONAL COM FUNDO COLORIDO -->
+            <div class="container mx-auto px-4 max-w-5xl">
+                <h3 class="text-xl font-bold text-slate-700 mb-10 flex items-center gap-2 justify-center">
+                    <i class="fa-solid fa-camera text-green-600"></i> Produção Audiovisual
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    
+                    <!-- Foto 1 (Fundo Verde) -->
+                    <div class="photo-frame w-full aspect-[3/4]">
+                        <div class="photo-bg bg-custom-green"></div>
+                        <img src="foto1.jpg" onerror="this.src='https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=600&h=800&fit=crop'" class="w-full h-full object-cover" alt="Foto Profissional 1">
+                    </div>
+
+                    <!-- Foto 2 (Fundo Azul) -->
+                    <div class="photo-frame w-full aspect-[3/4] md:mt-8">
+                        <div class="photo-bg bg-custom-blue"></div>
+                        <img src="foto2.jpg" onerror="this.src='https://images.unsplash.com/photo-1554048612-387768052bf7?w=600&h=800&fit=crop'" class="w-full h-full object-cover" alt="Foto Profissional 2">
+                    </div>
+
+                    <!-- Foto 3 (Fundo Verde) -->
+                    <div class="photo-frame w-full aspect-[3/4]">
+                        <div class="photo-bg bg-custom-green"></div>
+                        <img src="foto3.jpg" onerror="this.src='https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&h=800&fit=crop'" class="w-full h-full object-cover" alt="Foto Profissional 3">
+                    </div>
+
+                </div>
             </div>
         </section>
 
         <!-- SIMULADOR -->
-        <section id="orcamento" class="bg-slate-900 rounded-3xl shadow-2xl overflow-hidden">
+        <section id="orcamento" class="bg-slate-900 rounded-3xl shadow-2xl overflow-hidden scroll-mt-24">
             <div class="grid grid-cols-1 lg:grid-cols-2">
-                
-                <!-- Lado Esquerdo: Seleção -->
                 <div class="p-8 md:p-10 bg-white">
                     <h3 class="text-2xl font-bold text-slate-800 mb-2">Monte seu Combo</h3>
                     <p class="text-gray-500 mb-6 text-sm">Selecione o que precisa e veja o valor na hora.</p>
-
                     <div class="space-y-3 max-h-[400px] overflow-y-auto pr-2">
-                        <!-- Checkboxes -->
+                        <!-- Checkboxes (Mantido igual) -->
                         <label class="checkbox-wrapper cursor-pointer block">
                             <input type="checkbox" class="hidden" value="450" data-name="Social Media (Start)" onchange="calcularTotal()">
                             <div class="border border-gray-200 rounded-lg p-3 flex justify-between items-center hover:border-green-400 transition">
@@ -200,7 +345,6 @@
                                 <div class="font-bold text-sm text-slate-600">R$ 450</div>
                             </div>
                         </label>
-
                         <label class="checkbox-wrapper cursor-pointer block">
                             <input type="checkbox" class="hidden" value="850" data-name="Social Media (Growth)" onchange="calcularTotal()">
                             <div class="border border-gray-200 rounded-lg p-3 flex justify-between items-center hover:border-green-400 transition">
@@ -211,7 +355,6 @@
                                 <div class="font-bold text-sm text-slate-600">R$ 850</div>
                             </div>
                         </label>
-
                         <label class="checkbox-wrapper cursor-pointer block">
                             <input type="checkbox" class="hidden" value="600" data-name="Gestão de Tráfego" onchange="calcularTotal()">
                             <div class="border border-gray-200 rounded-lg p-3 flex justify-between items-center hover:border-green-400 transition">
@@ -222,7 +365,6 @@
                                 <div class="font-bold text-sm text-slate-600">R$ 600</div>
                             </div>
                         </label>
-
                         <label class="checkbox-wrapper cursor-pointer block">
                             <input type="checkbox" class="hidden" value="250" data-name="Pack 5 Artes" onchange="calcularTotal()">
                             <div class="border border-gray-200 rounded-lg p-3 flex justify-between items-center hover:border-green-400 transition">
@@ -233,7 +375,6 @@
                                 <div class="font-bold text-sm text-slate-600">R$ 250</div>
                             </div>
                         </label>
-
                         <label class="checkbox-wrapper cursor-pointer block">
                             <input type="checkbox" class="hidden" value="350" data-name="Google Meu Negócio" onchange="calcularTotal()">
                             <div class="border border-gray-200 rounded-lg p-3 flex justify-between items-center hover:border-green-400 transition">
@@ -244,7 +385,6 @@
                                 <div class="font-bold text-sm text-slate-600">R$ 350</div>
                             </div>
                         </label>
-
                         <label class="checkbox-wrapper cursor-pointer block">
                             <input type="checkbox" class="hidden" value="500" data-name="Logo Express" onchange="calcularTotal()">
                             <div class="border border-gray-200 rounded-lg p-3 flex justify-between items-center hover:border-green-400 transition">
@@ -258,29 +398,24 @@
                     </div>
                 </div>
 
-                <!-- Lado Direito: Total -->
                 <div class="bg-slate-900 p-8 md:p-10 text-white flex flex-col justify-between relative">
-                    
                     <div>
                         <h3 class="text-lg font-bold mb-4 text-gray-400 uppercase tracking-wider text-xs">Itens Selecionados</h3>
                         <div id="lista-selecionados" class="space-y-2 text-sm text-gray-300 min-h-[80px]">
                             <p class="italic opacity-50 text-xs">Nenhum serviço selecionado.</p>
                         </div>
                     </div>
-
                     <div class="mt-8 border-t border-gray-700 pt-6">
                         <div class="flex justify-between items-end mb-2">
                             <span class="text-gray-400 text-sm">Investimento Total</span>
                             <span class="text-4xl font-extrabold text-green-400" id="total-valor">R$ 0,00</span>
                         </div>
                         <p class="text-[10px] text-gray-500 mb-6 text-right">*Pagamento facilitado no cartão ou PIX.</p>
-                        
                         <button onclick="enviarWhatsApp()" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg hover:shadow-green-500/20 transform hover:-translate-y-1">
                             Solicitar Contratação
                         </button>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -289,7 +424,10 @@
     <footer class="bg-white border-t border-gray-100 py-10 text-center">
         <div class="container mx-auto px-6">
             <img src="logo_azi.jpg" alt="Logo" class="h-8 mx-auto mb-4 opacity-50 grayscale hover:grayscale-0 transition">
-            <p class="text-gray-400 text-xs mb-4">&copy; 2025 Azi Comunicação. Estratégias Digitais.</p>
+            <div class="flex justify-center gap-6 text-2xl text-gray-400 mb-4">
+                <a href="https://www.instagram.com/azicomunicacao/" target="_blank" class="hover:text-pink-600 transition"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <p class="text-gray-400 text-xs mb-2">&copy; 2025 Azi Comunicação. Estratégias Digitais.</p>
         </div>
     </footer>
 
@@ -339,12 +477,10 @@
 
             mensagem += `%0A💰 *Total Investimento: R$ ${total}*%0A%0APodemos fechar?`;
 
-            // Substitua pelo número real
-            const numeroWhatsApp = "5563993013005"; 
+            const numeroWhatsApp = "5563999999999"; 
             window.open(`https://wa.me/${numeroWhatsApp}?text=${mensagem}`, '_blank');
         }
     </script>
 
 </body>
 </html>
-
